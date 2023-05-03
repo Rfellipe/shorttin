@@ -1,0 +1,29 @@
+<%- include('includes/head') %>
+<%- include('includes/nav') %>
+
+  <div class="container text-center">
+    <div class="header">
+      <h1>
+        Welcome to <%= title %>
+      </h1>
+      <p>A easy and simple to use url shortner</p>
+    </div>
+    <!-- Header End -->
+    <div class="content">
+      <form method="POST" action="/new">
+        <div class="mb-3 input-group">
+          <input placeholder="Type the URL" name="url" class="form-control" />
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Short it!</button>
+          </div>
+          <!-- Button Div End -->
+        </div>
+        <!-- Form Input Group End -->
+      </form>
+      <!-- Form End -->
+    </div>
+    <!-- Content End -->
+  </div>
+  <!-- Container end -->
+
+<%- include('includes/footer') %>

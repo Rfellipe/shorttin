@@ -1,0 +1,21 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.navbar {
+  margin-bottom: 40px;
+}
+
+.header { 
+  margin-bottom: 35px;
+}
+
+.lnr {
+  fill: currentColor;
+  width: 60px;
+  height: 60px;
+}
