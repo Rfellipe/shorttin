@@ -1,5 +1,5 @@
 import Elysia from "elysia";
-import { UserController } from "./controllers/users/userControle";
+import { UserController } from "./controllers/users/userController";
 import { UserFunctions } from "./services/users/userService";
 
 const app = new Elysia()

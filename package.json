@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "srv:dev": "bun ./src/server/main.ts",
+    "srv:dev": "bun --watch ./src/server/main.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

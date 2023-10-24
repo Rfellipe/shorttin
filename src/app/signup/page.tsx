@@ -19,7 +19,7 @@ export default function SignUp() {
     e.preventDefault()
     const response = await Bun.fetch('http://localhost:4000/signup', {
       method: 'POST',
-      body: JSON.stringify({...form})
+      body: JSON.stringify({ ...form })
     })
     const body = await response.json()
     console.log(body)

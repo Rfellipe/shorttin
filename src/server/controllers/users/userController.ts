@@ -1,5 +1,4 @@
 import { UserFunctions } from '@/server/services/users/userService'
-import { Body } from '@/utils/utils'
 import Elysia from 'elysia'
 
 export class UserController {
@@ -9,6 +8,9 @@ export class UserController {
   ) {
     server.post('/signup', async ({ body }) => {
       return this.userFunctions.createUser(body)
+    })
+    server.post('/signin', async ({body}) => {
+      return this.userFunctions.loginUser(body)
     })
   }
 }
