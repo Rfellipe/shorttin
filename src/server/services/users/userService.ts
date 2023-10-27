@@ -7,21 +7,13 @@ export class UserFunctions {
     const { username, email, password, passwordConfirmation } = body
     this.error = 0
     try {
-      const usernameValidation = await prisma.users.findUnique({
-        where: {
-          username
-        }
-      })
+      const usernameValidation = await this.validateUsername(username)
 
       if (usernameValidation !== null) {
         this.error += 1
       }
 
-      const emailValidation = await prisma.users.findUnique({
-        where: {
-          email
-        }
-      })
+      const emailValidation = await this.validateEmail(username)
 
       if (emailValidation !== null) {
         this.error += 2
@@ -65,5 +57,43 @@ export class UserFunctions {
     }
   }
 
-  async loginUser(body): Promise<any> {}
+  async loginUser(body): Promise<any> {
+    const { username, email, password } = body
+
+    const usernameValidation = await this.validateUsername(username)
+    const emailValidation = await this.validateEmail(email)
+    
+    if (usernameValidation === null || emailValidation === null) {
+      return 'wrong credentials'
+    }
+
+    const pass = await Bun.password.verify(password, usernameValidation.password)
+
+    if (!pass) {
+      return 'wrong credentials'
+    }
+
+    delete usernameValidation.password
+
+    return usernameValidation
+  }
+
+  private async validateUsername(username: string) {
+    return await prisma.users.findUnique({
+      where: {
+        username
+      }
+    })
+  }
+
+  private async validateEmail(email: string) {
+    return await prisma.users.findUnique({
+      where: {
+        email
+      },
+      select: {
+        email: true
+      }
+    })
+  }
 }
