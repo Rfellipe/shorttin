@@ -27,8 +27,8 @@ model OldLink {
 
 model NewLink {
   id           String       @id @default(auto()) @map("_id") @db.ObjectId
-  url          String
-  clicks       Int     
+  url          String       @unique
+  clicks       Int?     
   oldLinkID    String[]     @db.ObjectId
   oldLink      OldLink[]    @relation(fields: [oldLinkID], references: [id])
   usersID      String       @db.ObjectId

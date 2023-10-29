@@ -64,13 +64,13 @@ export class UserFunctions {
     const emailValidation = await this.validateEmail(email)
     
     if (usernameValidation === null || emailValidation === null) {
-      return 'wrong credentials'
+      return false
     }
 
     const pass = await Bun.password.verify(password, usernameValidation.password)
 
     if (!pass) {
-      return 'wrong credentials'
+      return false
     }
 
     delete usernameValidation.password

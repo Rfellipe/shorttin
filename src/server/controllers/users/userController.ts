@@ -25,7 +25,7 @@ export class UserController {
       .post('/signin', async ({ jwt, setCookie, set, body }) => {
         const response = await this.userFunctions.loginUser(body)
       
-        if (response === 'wrong credentials') {
+        if (!response) {
           set.status = 401
           return 'Unauthorized'
         }

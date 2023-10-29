@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import { useState } from 'react'
+import { FormEventHandler, useState } from 'react'
 
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -10,19 +10,27 @@ export default function SignUp() {
     passwordConfirmation: ''
   })
 
-  const onChange = e => {
+  const handleChange = e => {
     console.log({ ...form, [e.target.name]: e.target.value })
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
   const handleForm = async e => {
     e.preventDefault()
-    const response = await Bun.fetch('http://localhost:4000/signup', {
-      method: 'POST',
-      body: JSON.stringify({ ...form })
-    })
-    const body = await response.json()
-    console.log(body)
+    try {
+      const response = await fetch('http://localhost:4000/signup', {
+        method: 'POST',
+        body: JSON.stringify({ ...form }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const body = await response.json()
+      console.log(body)
+    } catch (error) {
+      console.error('Error:', error)
+    }
   }
 
   return (
@@ -46,7 +54,11 @@ export default function SignUp() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign up to your account
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={handleForm}>
+            <form
+              id="signup-form"
+              className="space-y-4 md:space-y-6"
+              onSubmit={handleForm}
+            >
               <div>
                 <label
                   htmlFor="username"
@@ -55,7 +67,7 @@ export default function SignUp() {
                   Create an username
                 </label>
                 <input
-                  onChange={onChange}
+                  onChange={handleChange}
                   type="username"
                   name="username"
                   id="username"
@@ -72,7 +84,7 @@ export default function SignUp() {
                   Your email
                 </label>
                 <input
-                  onChange={onChange}
+                  onChange={handleChange}
                   type="email"
                   name="email"
                   id="email"
@@ -89,7 +101,7 @@ export default function SignUp() {
                   Password
                 </label>
                 <input
-                  onChange={onChange}
+                  onChange={handleChange}
                   type="password"
                   name="password"
                   id="password"
@@ -106,7 +118,7 @@ export default function SignUp() {
                   Confirm Password
                 </label>
                 <input
-                  onChange={onChange}
+                  onChange={handleChange}
                   type="password"
                   name="passwordConfirmation"
                   id="passwordConfirmation"
